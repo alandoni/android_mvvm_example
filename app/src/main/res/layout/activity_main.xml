@@ -72,7 +72,7 @@
             app:layout_constraintTop_toBottomOf="@id/post_creation"
             android:layout_marginTop="8dp"
             android:textColor="@color/black"
-            android:visibility="gone"
+            android:visibility="@{viewModel.isCacheOnly ? View.VISIBLE : View.GONE}"
             tools:visibility="visible"
             android:text="@string/cache_only"
             android:id="@+id/cache_label" />

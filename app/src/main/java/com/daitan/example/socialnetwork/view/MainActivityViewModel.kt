@@ -14,6 +14,7 @@ class MainActivityViewModel(private val postRepository: PostRepository): ViewMod
     val text = MutableLiveData("")
     val posts = MutableLiveData<List<Post>>()
     val error = MutableLiveData<Exception>()
+    val isCacheOnly = MutableLiveData<Boolean>()
 
     fun createPost() = viewModelScope.launch {
         text.value?.let {
@@ -39,6 +40,7 @@ class MainActivityViewModel(private val postRepository: PostRepository): ViewMod
 
     private suspend fun loadRemotePosts() {
         try {
+            isCacheOnly.value = false
             posts.value = postRepository.getRemotePosts().also {
                 if (it.isEmpty()) {
                     throw RuntimeException("Empty list")
@@ -47,6 +49,7 @@ class MainActivityViewModel(private val postRepository: PostRepository): ViewMod
         } catch (e: Exception) {
             error.value = e
             loadLocalPosts()
+            isCacheOnly.value = true
         }
     }
 
