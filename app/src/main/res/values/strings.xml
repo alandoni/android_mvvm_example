@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Social Network</string>
+    <string name="what_thinking">No que está pensando?</string>
+    <string name="send">Enviar</string>
+    <string name="see_comments">Ver comentários</string>
+    <string name="profile_image">Imagem de perfil</string>
+    <string name="no_posts">Ainda não há publicações para exibir</string>
+    <string name="unknown_error">Erro desconhecido, tente carregar novamente…</string>
+    <string name="cache_only">Não foi possível carregar novas publicações.</string>
+    <string name="seconds_ago">Alguns segundos atrás</string>
+    <plurals name="minutes_ago">
+        <item quantity="one" formatted="true">%1$s minuto atrás</item>
+        <item quantity="other" formatted="true">%1$s minutos atrás</item>
+    </plurals>
+    <string name="date_format">dd/MM/yyyy HH:mm</string>
+    <string name="post_status">Status do post</string>
+</resources>
