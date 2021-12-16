@@ -7,12 +7,14 @@
         <variable
             name="viewModel"
             type="com.daitan.example.socialnetwork.view.MainActivityViewModel" />
+        <import type="android.view.View" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:refreshing="@{viewModel.loading}"
         tools:context=".view.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -83,7 +85,7 @@
             app:layout_constraintTop_toBottomOf="@id/cache_label"
             android:textColor="@color/black"
             android:layout_marginTop="8dp"
-            android:visibility="visible"
+            android:visibility="@{viewModel.error != null ? View.VISIBLE : View.GONE}"
             tools:text="@string/no_posts"
             android:id="@+id/error_label" />
 
