@@ -32,8 +32,8 @@ class MainActivityViewModel(private val postRepository: PostRepository): ViewMod
         loading.value = false
 
         async {
-            loadRemotePosts()
             sendFailedPosts()
+            loadRemotePosts()
         }
 
         loading.value = false
@@ -44,7 +44,7 @@ class MainActivityViewModel(private val postRepository: PostRepository): ViewMod
             isCacheOnly.value = false
             posts.value = postRepository.getRemotePosts().also {
                 if (it.isEmpty()) {
-                    throw RuntimeException("Empty list")
+                    throw RuntimeException("Empty List")
                 }
             }
         } catch (e: Exception) {
