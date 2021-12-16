@@ -30,6 +30,10 @@ class MainActivity : AppCompatActivity() {
             viewModel.createPost()
         }
 
+        binding.swipeContainer.setOnRefreshListener {
+            viewModel.loadPosts()
+        }
+
         viewModel.error.observe(this) {
             binding.errorLabel.text = when (it) {
                 is RuntimeException -> getString(R.string.no_posts)

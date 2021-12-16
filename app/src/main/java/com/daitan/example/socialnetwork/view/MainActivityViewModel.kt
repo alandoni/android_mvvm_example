@@ -18,11 +18,9 @@ class MainActivityViewModel(private val postRepository: PostRepository): ViewMod
         text.value?.let {
             loading.value = true
             val post = Post(user = "Alan", text = it)
-            try {
-                postRepository.sendPost(post)
-            } catch (e: Exception) {
-                error.value = e
-            }
+            postRepository.createPostLocal(post)
+            loadLocalPosts()
+            postRepository.sendPost(post)
             loadPosts()
         }
     }
@@ -36,7 +34,12 @@ class MainActivityViewModel(private val postRepository: PostRepository): ViewMod
             }
         } catch (e: Exception) {
             error.value = e
+            loadLocalPosts()
         }
         loading.value = false
+    }
+
+    private suspend fun loadLocalPosts() {
+        posts.value = postRepository.getLocalPosts()
     }
 }
