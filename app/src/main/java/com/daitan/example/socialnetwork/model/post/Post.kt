@@ -6,5 +6,8 @@ import java.util.*
 
 @Entity
 data class Post(
-    @PrimaryKey val id: String = UUID.randomUUID().toString()
+    @PrimaryKey val id: String = UUID.randomUUID().toString(),
+    val user: String,
+    val text: String = "",
+    val date: Date = Date()
 )

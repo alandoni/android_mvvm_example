@@ -2,6 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="post"
+            type="com.daitan.example.socialnetwork.model.post.Post" />
+    </data>
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,7 +51,7 @@
                 android:textColor="@color/design_default_color_primary"
                 android:id="@+id/user_name"
                 tools:text="Example Name"
-                android:text=""
+                android:text="@{post.user}"
                 android:textSize="18sp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
@@ -81,7 +87,7 @@
                 android:textSize="18sp"
                 tools:text="Example Text"
                 android:textColor="@color/black"
-                android:text=""
+                android:text="@{post.text}"
                 android:layout_marginTop="12dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/date"
