@@ -25,6 +25,7 @@ class MainActivityViewModel(private val postRepository: PostRepository): ViewMod
             postRepository.sendPost(post)
             loadPosts()
         }
+        text.value = ""
     }
 
     fun loadPosts() = viewModelScope.launch {
