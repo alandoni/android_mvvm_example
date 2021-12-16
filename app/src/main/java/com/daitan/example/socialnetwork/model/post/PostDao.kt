@@ -18,4 +18,9 @@ abstract class PostDao {
 
     @Query("SELECT * FROM posts WHERE id = :id")
     abstract suspend fun selectById(id: String): Post
+
+    @Query("SELECT * FROM posts WHERE status = :status")
+    abstract suspend fun selectByStatus(status: Post.PostStatus): List<Post>
+
+    suspend fun selectFailed(): List<Post> = selectByStatus(Post.PostStatus.ERROR)
 }

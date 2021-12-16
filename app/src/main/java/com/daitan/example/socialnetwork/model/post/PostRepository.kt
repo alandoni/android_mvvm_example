@@ -1,5 +1,10 @@
 package com.daitan.example.socialnetwork.model.post
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.withContext
+
 class PostRepository(private val postDao: PostDao, private val postService: PostService) {
 
     suspend fun createPostLocal(post: Post): Post {
@@ -26,5 +31,14 @@ class PostRepository(private val postDao: PostDao, private val postService: Post
 
     suspend fun getLocalPosts(): List<Post> {
         return postDao.selectAll()
+    }
+
+    suspend fun sendFailedPosts() = withContext(Dispatchers.Default) {
+        val failed = postDao.selectFailed()
+        failed.map {
+            async {
+                sendPost(it)
+            }
+        }.awaitAll()
     }
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.daitan.example.socialnetwork.model.post.Post
 import com.daitan.example.socialnetwork.model.post.PostRepository
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.lang.RuntimeException
 
@@ -26,6 +27,17 @@ class MainActivityViewModel(private val postRepository: PostRepository): ViewMod
     }
 
     fun loadPosts() = viewModelScope.launch {
+        loading.value = false
+
+        async {
+            loadRemotePosts()
+            sendFailedPosts()
+        }
+
+        loading.value = false
+    }
+
+    private suspend fun loadRemotePosts() {
         try {
             posts.value = postRepository.getRemotePosts().also {
                 if (it.isEmpty()) {
@@ -36,7 +48,11 @@ class MainActivityViewModel(private val postRepository: PostRepository): ViewMod
             error.value = e
             loadLocalPosts()
         }
-        loading.value = false
+    }
+
+    private suspend fun sendFailedPosts() {
+        postRepository.sendFailedPosts()
+        loadLocalPosts()
     }
 
     private suspend fun loadLocalPosts() {
