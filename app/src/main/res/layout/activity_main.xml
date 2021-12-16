@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" >
 
+    <data>
+        <variable
+            name="viewModel"
+            type="com.daitan.example.socialnetwork.view.MainActivityViewModel" />
+    </data>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_container"
         android:layout_width="match_parent"
@@ -39,7 +45,7 @@
                     android:layout_marginRight="8dp"
                     android:layout_marginEnd="8dp"
                     android:id="@+id/post_text"
-                    android:text=""
+                    android:text="@={viewModel.text}"
                     app:layout_constraintRight_toLeftOf="@id/send_button"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -50,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/send"
                     android:id="@+id/send_button"
-                    android:enabled="true"
+                    android:enabled="@{!viewModel.text.empty}"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
