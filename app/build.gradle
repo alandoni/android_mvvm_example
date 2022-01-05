@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt' // important
+    id 'com.google.devtools.ksp' version "1.6.10-1.0.2" // important
 }
 
 android {
@@ -49,7 +50,7 @@ dependencies {
 
     // Room Implementation for data persistence
     implementation "androidx.room:room-runtime:2.4.0"
-    kapt "androidx.room:room-compiler:2.4.0"
+    ksp "androidx.room:room-compiler:2.4.0"
     implementation "androidx.room:room-ktx:2.4.0"
 
     // Swipe Refresh
