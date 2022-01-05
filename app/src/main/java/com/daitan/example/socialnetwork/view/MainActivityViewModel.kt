@@ -48,9 +48,15 @@ class MainActivityViewModel(private val postRepository: PostRepository): ViewMod
                 }
             }
         } catch (e: Exception) {
-            error.value = e
-            loadLocalPosts()
-            isCacheOnly.value = true
+            when (e) {
+                is RuntimeException ->
+                    error.value = e
+                else -> {
+                    error.value = e
+                    loadLocalPosts()
+                    isCacheOnly.value = true
+                }
+            }
         }
     }
 
