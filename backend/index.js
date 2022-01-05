@@ -112,7 +112,9 @@ app.get('/post/:id/comment', (request, response) => {
 });
 
 app.listen(port, () => {
-    const nets = networkInterfaces().en0.filter((n) => {
+    console.log(networkInterfaces())
+
+    const nets = (networkInterfaces().en0 ?? networkInterfaces().Ethernet).filter((n) => {
         return n.family === 'IPv4';
     })[0];
 
