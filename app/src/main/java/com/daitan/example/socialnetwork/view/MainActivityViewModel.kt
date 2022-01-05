@@ -13,7 +13,7 @@ class MainActivityViewModel(private val postRepository: PostRepository): ViewMod
     val loading = MutableLiveData<Boolean>()
     val text = MutableLiveData("")
     val posts = MutableLiveData<List<Post>>()
-    val error = MutableLiveData<Exception>()
+    val error = MutableLiveData<Exception?>()
     val isCacheOnly = MutableLiveData<Boolean>()
 
     fun createPost() = viewModelScope.launch {
@@ -29,14 +29,18 @@ class MainActivityViewModel(private val postRepository: PostRepository): ViewMod
     }
 
     fun loadPosts() = viewModelScope.launch {
-        loading.value = false
+
+        error.value = null
+        isCacheOnly.value = false
 
         async {
+            loading.value = true
+
             sendFailedPosts()
             loadRemotePosts()
-        }
 
-        loading.value = false
+            loading.value = false
+        }
     }
 
     private suspend fun loadRemotePosts() {
